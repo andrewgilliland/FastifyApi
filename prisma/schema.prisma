@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model exercises {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  difficulty        String
+  equipment         String
+  exerciseType      String
+  forceType         String
+  mechanics         String
+  name              String
+  secondaryMuscles  String[]
+  targetMuscleGroup String
+}
+
+model programs {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model workouts {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
