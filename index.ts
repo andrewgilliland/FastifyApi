@@ -1,11 +1,12 @@
 import fastify from "fastify";
 import { PrismaClient } from "@prisma/client";
+import { Exercise } from "./types/Exercise";
 
 const server = fastify();
 const prisma = new PrismaClient();
 
 server.get("/exercises", async (req, res) => {
-  const exercises = await prisma.exercises.findMany();
+  const exercises = (await prisma.exercises.findMany()) as Exercise[];
 
   console.log("exercises: ", exercises);
   return exercises;
