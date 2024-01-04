@@ -7,8 +7,7 @@ const prisma = new PrismaClient();
 
 server.get("/exercises", async (req, res) => {
   const exercises = (await prisma.exercises.findMany()) as Exercise[];
-
-  console.log("exercises: ", exercises);
+  res.header("Access-Control-Allow-Origin", "*");
   return exercises;
 });
 
