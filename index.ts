@@ -1,32 +1,26 @@
 import fastify from "fastify";
+import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
 import { Exercise } from "./types/Exercise";
 
 const server = fastify();
 const prisma = new PrismaClient();
 
+server.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+});
+
 server.get("/exercises", async (req, res) => {
   const exercises = (await prisma.exercises.findMany()) as Exercise[];
-  res.header("Access-Control-Allow-Origin", "*");
+
   return exercises;
 });
 
-server.post("/create-exercise", async (req, res) => {
-  //   const exercise = await prisma.exercise.create({
-  //     data: {
-  //       name: "clap pushup",
-  //       difficulty: "HARD",
-  //       equipment: "NONE",
-  //       exerciseType: "STRENGTH",
-  //       forceType: "PUSH",
-  //       mechanics: "COMPOUND",
-  //       secondaryMuscleGroup: ["triceps"],
-  //       targetMuscleGroup: "chest",
-  //     },
-  //   });
+server.post("/exercise", async (req, res) => {
+  console.log(req.body);
 
-  //   console.log("exercise", exercise);
-  return `create exercise\n`;
+  return `{"response": "success"}`;
 });
 
 server.get("/workouts", async (request, reply) => {
