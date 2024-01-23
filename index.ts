@@ -20,7 +20,11 @@ server.get("/exercises", async (req, res) => {
 server.post("/exercise", async (req, res) => {
   console.log(req.body);
 
-  return `{"response": "success"}`;
+  const exercise = await prisma.exercises.create({
+    data: req.body as Exercise,
+  });
+
+  return exercise;
 });
 
 server.get("/workouts", async (request, reply) => {
