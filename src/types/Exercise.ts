@@ -35,7 +35,7 @@ const forceType = ["push", "pull", "hinge", "static"] as const;
 const mechanics = ["compound", "isolation", "isometric"] as const;
 
 const Exercise = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   difficulty: z.enum(difficulty),
   equipment: z.enum(equipment),
   exerciseType: z.enum(exerciseType),
