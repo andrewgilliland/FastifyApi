@@ -19,4 +19,29 @@ export class ExerciseController {
     });
     return newExercise;
   }
+
+  async getExerciseById(id: string): Promise<Exercise | null> {
+    const exercise = await this.prisma.exercises.findUnique({
+      where: { id },
+    });
+
+    return exercise as Exercise;
+  }
+
+  async updateExerciseById(id: string, exercise: Partial<Exercise>) {
+    const updatedExercise = await this.prisma.exercises.update({
+      where: { id },
+      data: exercise as Exercise,
+    });
+
+    return updatedExercise as Exercise;
+  }
+
+  async deleteExerciseById(id: string) {
+    const deletedExercise = await this.prisma.exercises.delete({
+      where: { id },
+    });
+
+    return deletedExercise as Exercise;
+  }
 }

@@ -16,4 +16,43 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
     );
     return exercise;
   });
+
+  fastify.get(
+    "/exercises/:id",
+    async (
+      req: FastifyRequest<{ Params: { id: string } }>,
+      res: FastifyReply
+    ) => {
+      const id = req.params.id;
+      const exercise = await exerciseController.getExerciseById(id);
+      return exercise;
+    }
+  );
+
+  fastify.put(
+    "/exercises/:id",
+    async (
+      req: FastifyRequest<{ Params: { id: string } }>,
+      res: FastifyReply
+    ) => {
+      const id = req.params.id;
+      const exercise = await exerciseController.updateExerciseById(
+        id,
+        req.body as Partial<Exercise>
+      );
+      return exercise;
+    }
+  );
+
+  fastify.delete(
+    "/exercises/:id",
+    async (
+      req: FastifyRequest<{ Params: { id: string } }>,
+      res: FastifyReply
+    ) => {
+      const id = req.params.id;
+      const exercise = await exerciseController.deleteExerciseById(id);
+      return exercise;
+    }
+  );
 }
