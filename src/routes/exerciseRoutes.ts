@@ -6,6 +6,7 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
   const exerciseController = new ExerciseController();
 
   fastify.get("/exercises", async (req: FastifyRequest, res: FastifyReply) => {
+    console.log("/exercises");
     const exercises = await exerciseController.getAllExercises();
     return exercises;
   });
@@ -16,6 +17,7 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
       req: FastifyRequest<{ Params: { search: string } }>,
       res: FastifyReply
     ) => {
+      console.log("/exercises/:search");
       const search = req.params.search;
       const exercises = await exerciseController.getExercisesBySearch(search);
       return exercises;
@@ -30,7 +32,7 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
   });
 
   fastify.get(
-    "/exercises/:id",
+    "/exercise/:id",
     async (
       req: FastifyRequest<{ Params: { id: string } }>,
       res: FastifyReply
@@ -42,7 +44,7 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
   );
 
   fastify.put(
-    "/exercises/:id",
+    "/exercise/:id",
     async (
       req: FastifyRequest<{ Params: { id: string } }>,
       res: FastifyReply
@@ -57,7 +59,7 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
   );
 
   fastify.delete(
-    "/exercises/:id",
+    "/exercise/:id",
     async (
       req: FastifyRequest<{ Params: { id: string } }>,
       res: FastifyReply

@@ -14,6 +14,7 @@ export class ExerciseController {
   }
 
   async getExercisesBySearch(search: string): Promise<Exercise[]> {
+    console.log("search: ", search);
     const exercises = (await this.prisma.exercises.findMany({
       where: {
         name: {
@@ -21,6 +22,7 @@ export class ExerciseController {
         },
       },
     })) as Exercise[];
+    console.log("exercises: ", exercises);
     return exercises;
   }
 
