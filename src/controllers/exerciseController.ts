@@ -13,6 +13,17 @@ export class ExerciseController {
     return exercises;
   }
 
+  async getExercisesBySearch(search: string): Promise<Exercise[]> {
+    const exercises = (await this.prisma.exercises.findMany({
+      where: {
+        name: {
+          contains: search,
+        },
+      },
+    })) as Exercise[];
+    return exercises;
+  }
+
   async createExercise(exercise: Partial<Exercise>) {
     const newExercise = await this.prisma.exercises.create({
       data: exercise as Exercise,

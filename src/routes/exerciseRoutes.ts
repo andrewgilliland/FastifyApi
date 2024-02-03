@@ -10,6 +10,18 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
     return exercises;
   });
 
+  fastify.get(
+    "/exercises/:search",
+    async (
+      req: FastifyRequest<{ Params: { search: string } }>,
+      res: FastifyReply
+    ) => {
+      const search = req.params.search;
+      const exercises = await exerciseController.getExercisesBySearch(search);
+      return exercises;
+    }
+  );
+
   fastify.post("/exercise", async (req: FastifyRequest, res: FastifyReply) => {
     const exercise = await exerciseController.createExercise(
       req.body as Partial<Exercise>
