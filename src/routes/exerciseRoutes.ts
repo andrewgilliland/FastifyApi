@@ -49,6 +49,7 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
       req: FastifyRequest<{ Params: { id: string } }>,
       res: FastifyReply
     ) => {
+      console.log("/exercise/:id PUT route");
       const id = req.params.id;
       const exercise = await exerciseController.updateExerciseById(
         id,
