@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type WorkoutsExercises {
+  id   Int
+  /// Multiple data types found: WorkoutsExercisesSets: 50%, Array(WorkoutsExercisesSets): 50% out of 6 sampled entries
+  sets Json
+}
+
+type WorkoutsExercisesSets {
+  duration    Int?
+  repetitions Int?
+}
+
 model exercises {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
   difficulty        String
@@ -24,5 +35,9 @@ model programs {
 }
 
 model workouts {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String              @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  difficulty  String
+  exercises   WorkoutsExercises[]
+  name        String
 }
