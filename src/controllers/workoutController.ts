@@ -8,7 +8,7 @@ export class WorkoutController {
     this.prisma = new PrismaClient();
   }
 
-  async getAllWorkouts() {
+  async getAllWorkouts(): Promise<Workout[]> {
     const workouts = (await this.prisma.workouts.findMany()) as Workout[];
     return workouts;
   }

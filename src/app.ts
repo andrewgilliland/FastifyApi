@@ -1,10 +1,9 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
-import { PrismaClient } from "@prisma/client";
 import exerciseRoutes from "./routes/exerciseRoutes";
+import workoutRoutes from "./routes/WorkoutRoutes";
 
 const server = fastify();
-const prisma = new PrismaClient();
 
 server.register(cors, {
   origin: "*",
@@ -12,9 +11,6 @@ server.register(cors, {
 });
 
 server.register(exerciseRoutes);
-
-server.get("/workouts", async (request, reply) => {
-  return "get all workouts";
-});
+server.register(workoutRoutes);
 
 export default server;
