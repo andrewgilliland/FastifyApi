@@ -9,7 +9,9 @@ export class WorkoutController {
   }
 
   async getAllWorkouts(): Promise<Workout[]> {
-    const workouts = (await this.prisma.workouts.findMany()) as Workout[];
+    // @ts-ignore
+    const workouts = (await this.prisma.workouts.findMany()) as Workout[]; // Todo: fix typing for this
+    console.log("workouts: ", workouts);
     return workouts;
   }
 }

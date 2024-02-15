@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import exerciseRoutes from "./routes/exerciseRoutes";
-import workoutRoutes from "./routes/WorkoutRoutes";
+import workoutRoutes from "./routes/workoutRoutes";
 
 const server = fastify();
 
