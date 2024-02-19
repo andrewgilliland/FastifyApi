@@ -11,4 +11,17 @@ export default async function workoutRoutes(fastify: FastifyInstance) {
     const workouts = await workoutController.getAllWorkouts();
     return workouts;
   });
+
+  // Read workout by id
+  fastify.get(
+    `${route}/:id`,
+    async (
+      req: FastifyRequest<{ Params: { id: string } }>,
+      res: FastifyReply
+    ) => {
+      const id = req.params.id;
+      const workout = await workoutController.getWorkoutById(id);
+      return workout;
+    }
+  );
 }

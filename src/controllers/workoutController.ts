@@ -14,4 +14,14 @@ export class WorkoutController {
     console.log("workouts: ", workouts);
     return workouts;
   }
+
+  async getWorkoutById(id: string): Promise<Workout | null> {
+    const workout = await this.prisma.workouts.findUnique({
+      where: { id },
+    });
+
+    console.log("workout: ", workout);
+    // @ts-ignore
+    return workout as Workout;
+  }
 }
