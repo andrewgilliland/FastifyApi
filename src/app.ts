@@ -10,6 +10,10 @@ server.register(cors, {
   methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
+server.get("/", async (request, reply) => {
+  return { message: "Hello, ReactFit💪!" };
+});
+
 server.register(exerciseRoutes);
 server.register(workoutRoutes);
 

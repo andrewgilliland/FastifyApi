@@ -1,6 +1,12 @@
 import server from "./app";
 
-server.listen({ port: 8080 }, (err, address) => {
+console.log("process.env: ", process.env.NODE_ENV);
+
+const port = process.env.NODE_ENV === "development" ? 8080 : 3000;
+
+console.log("port: ", port);
+
+server.listen({ port }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
