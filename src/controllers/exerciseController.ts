@@ -17,10 +17,19 @@ export class ExerciseController {
   async getAllExercises(): Promise<Exercise[]> {
     const exercises = (await this.prisma.exercises.findMany()) as Exercise[];
 
-    const exercisezzz = await this.supabase.from("exercises").select("*");
-    console.log("exercisezzz: ", exercisezzz.data);
-    const difficulty = await this.supabase.from("difficulty").select("*");
-    console.log("difficulty: ", difficulty.data);
+    const { data, error } = await this.supabase.from("exercises").select(`
+    id,
+    name,
+    difficulty (
+      name
+    )
+    `);
+    console.log("exercisezzz: ", data);
+
+    const { data: dData, error: dError } = await this.supabase
+      .from("difficulty")
+      .select("name");
+    // console.log("difficulty: ", dData);
 
     return exercises;
   }
