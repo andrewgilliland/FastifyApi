@@ -1,15 +1,27 @@
 import { PrismaClient } from "@prisma/client";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import { Exercise } from "../types/Exercise";
 
 export class ExerciseController {
   private prisma: PrismaClient;
+  private supabase: SupabaseClient;
 
   constructor() {
     this.prisma = new PrismaClient();
+    this.supabase = createClient(
+      process.env.SUPABASE_PROJECT_URL as string,
+      process.env.SUPABASE_API_KEY as string
+    );
   }
 
   async getAllExercises(): Promise<Exercise[]> {
     const exercises = (await this.prisma.exercises.findMany()) as Exercise[];
+
+    const exercisezzz = await this.supabase.from("exercises").select("*");
+    console.log("exercisezzz: ", exercisezzz.data);
+    const difficulty = await this.supabase.from("difficulty").select("*");
+    console.log("difficulty: ", difficulty.data);
+
     return exercises;
   }
 
