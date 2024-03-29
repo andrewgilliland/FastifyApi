@@ -9,9 +9,7 @@ export class WorkoutController {
   }
 
   async getAllWorkouts(): Promise<Workout[]> {
-    // @ts-ignore
-    const workouts = (await this.prisma.workouts.findMany()) as Workout[]; // Todo: fix typing for this
-    console.log("workouts: ", workouts);
+    const workouts = (await this.prisma.workouts.findMany()) as Workout[]; // Todo: fix typing for this - schema.prisma should correspond to the workout type
     return workouts;
   }
 
@@ -19,8 +17,6 @@ export class WorkoutController {
     const workout = await this.prisma.workouts.findUnique({
       where: { id },
     });
-
-    console.log("workout: ", workout);
     // @ts-ignore
     return workout as Workout;
   }
