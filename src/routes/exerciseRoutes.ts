@@ -22,13 +22,14 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
     return exercise;
   });
 
-  // Read exercise by id
+  // Get exercise by id
   fastify.get(
     `${route}/:id`,
     async (
       req: FastifyRequest<{ Params: { id: string } }>,
       res: FastifyReply
     ) => {
+      console.log("Get exercise by id");
       const id = req.params.id;
       const exercise = await exerciseController.getExerciseById(id);
       return exercise;

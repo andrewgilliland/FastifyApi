@@ -18,20 +18,18 @@ export class ExerciseController {
     const exercises = (await this.prisma.exercises.findMany()) as Exercise[];
 
     const { data, error } = await this.supabase.from("exercises").select(`
-    id,
-    name,
-    difficulty (
-      name
-    )
+      id,
+      name,
+      difficulty,
+      equipment,
+      exercise_type,
+      force_type,
+      mechanics,
+      target_muscle_group,
+      secondary_muscles
     `);
-    console.log("exercisezzz: ", data);
 
-    const { data: dData, error: dError } = await this.supabase
-      .from("difficulty")
-      .select("name");
-    // console.log("difficulty: ", dData);
-
-    return exercises;
+    return data as any;
   }
 
   async getExercisesBySearch(search: string): Promise<Exercise[]> {
@@ -51,15 +49,28 @@ export class ExerciseController {
     const newExercise = await this.prisma.exercises.create({
       data: exercise as Exercise,
     });
+
+    console.log("exercise: ", exercise);
+    const { data, error } = await this.supabase
+      .from("exercises")
+      .insert(exercise as Exercise);
+
+    console.log("data: ", data);
+
     return newExercise;
   }
 
   async getExerciseById(id: string): Promise<Exercise | null> {
-    const exercise = await this.prisma.exercises.findUnique({
-      where: { id },
-    });
+    const { data, error } = await this.supabase
+      .from("exercises")
+      .select(`*`)
+      .eq("id", id)
+      .limit(1)
+      .single();
 
-    return exercise as Exercise;
+    console.log("data: ", data);
+
+    return data as any;
   }
 
   async updateExerciseById(id: string, exercise: Partial<Exercise>) {
